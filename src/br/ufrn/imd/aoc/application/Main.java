@@ -1,13 +1,22 @@
 package br.ufrn.imd.aoc.application;
 
-public class Main {
+import java.io.IOException;
 
-	public Main() {
-		// TODO Auto-generated constructor stub
-	}
+import br.ufrn.imd.aoc.domain.FileReaderController;
+
+public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		FileReaderController FR = new FileReaderController();
+		
+		try {
+			FR.readFile("assets/AOC_data.csv");
+			FR.printLines();
+			FR.printRegisterOccurency();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
 
