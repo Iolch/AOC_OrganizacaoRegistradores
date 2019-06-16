@@ -31,7 +31,7 @@ private HashMap <String, Integer> registerDestOccurency = new HashMap <String, I
 		    	this.lines.put(CL.getLinePosition(), CL);	//armazena em lines
 		    	
 		    	if(this.registerDestOccurency.get(CL.getDest()) != null) 	//caso já exista essa chave, adicionamos +1 na qntd ocorrências
-		    		{	this.registerDestOccurency.put(CL.getDest(), Integer.parseInt(CL.getDest())+1);	}
+		    		{	this.registerDestOccurency.put(CL.getDest(), this.registerDestOccurency.get(CL.getDest())+1);	}
 		    	else this.registerDestOccurency.put(CL.getDest(), 1);	// caso não, registramos a nova chave
 		    	
 		    }
