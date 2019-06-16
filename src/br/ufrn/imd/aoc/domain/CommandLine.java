@@ -35,4 +35,16 @@ public class CommandLine {
 	public String getDest() {
 		return dest;
 	}
+	public void setDest(String dest) 
+	{
+		this.dest = dest;
+	}
+	public void setOp1(String op1) 
+	{
+		this.op1 = op1;
+	}
+	public void setOp2(String op2) 
+	{
+		this.op2 = op2;
+	}
 }

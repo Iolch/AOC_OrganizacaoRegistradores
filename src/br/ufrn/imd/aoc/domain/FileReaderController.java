@@ -43,6 +43,10 @@ private HashMap <String, Integer> registerDestOccurency = new HashMap <String, I
 	{
 		return this.lines;
 	}
+	public HashMap <String, Integer> getRegisterDestOccurency()
+	{
+		return this.registerDestOccurency;
+	}
 	public void printLines() 
 	{
 		Set<String> keys = this.lines.keySet();
