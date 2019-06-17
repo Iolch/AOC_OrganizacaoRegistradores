@@ -1,6 +1,7 @@
 package br.ufrn.imd.aoc.application;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import br.ufrn.imd.aoc.domain.FileReaderController;
 import br.ufrn.imd.aoc.domain.RenameRegisters;
@@ -13,12 +14,19 @@ public class Main {
 		
 		try {
 			FR.readFile("assets/AOC_data.csv");
-			//FR.printLines();
-			//FR.printRegisterOccurency();
 			try 
 			{
 				RenameRegisters RR = new RenameRegisters(FR);	//Passamos o arquivo lido para a classe que irá renomear os registradores
-				RR.run();	//executamos a função que renomeará
+				FR.printLines();
+				
+				//Enquanto houver registradores repetidos no destino, iremos chamar a função de renomear
+				HashMap <String, Integer> registersOccurency = FR.runRegisterDestOccurency();
+				while(!(registersOccurency.isEmpty())) 
+				{
+					RR.run(registersOccurency);
+					registersOccurency = FR.runRegisterDestOccurency();
+				}
+				
 				FR.printLines();
 			}catch(Exception e) 
 			{

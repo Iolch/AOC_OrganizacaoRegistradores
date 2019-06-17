@@ -11,7 +11,6 @@ public class FileReaderController {
 
 private final String COMMA_DELIMITER = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
 private HashMap <String, CommandLine> lines = new HashMap <String, CommandLine>();	// Armazenará os dados de cada linha, e sua chave é a posição da linha
-private HashMap <String, Integer> registerDestOccurency = new HashMap <String, Integer>();	//Armazenará a quantidade de vezes que cada registrador aparece como destino, sua chave é o registrador
 
 
 	public void readFile(String filepath) throws FileNotFoundException, IOException 
@@ -30,22 +29,28 @@ private HashMap <String, Integer> registerDestOccurency = new HashMap <String, I
 		    	CommandLine CL = new CommandLine(values[0],values[1],values[2],values[3],values[4]);	//cria objeto linha
 		    	this.lines.put(CL.getLinePosition(), CL);	//armazena em lines
 		    	
-		    	if(this.registerDestOccurency.get(CL.getDest()) != null) 	//caso já exista essa chave, adicionamos +1 na qntd ocorrências
-		    		{	this.registerDestOccurency.put(CL.getDest(), this.registerDestOccurency.get(CL.getDest())+1);	}
-		    	else this.registerDestOccurency.put(CL.getDest(), 1);	// caso não, registramos a nova chave
-		    	
 		    }
 		    
 		}
 	}
 	
+	public HashMap <String, Integer> runRegisterDestOccurency()
+	{
+		
+		HashMap <String, Integer> RDO = new HashMap <String, Integer>();
+		Set<String> keys = this.lines.keySet();
+
+		for (String key : keys) {
+			if(RDO.get(this.lines.get(key).getDest()) != null) 	//caso já exista essa chave, adicionamos +1 na qntd ocorrências
+    		{	RDO.put(this.lines.get(key).getDest(), RDO.get(this.lines.get(key).getDest())+1);	}
+			else RDO.put(this.lines.get(key).getDest(), 1);	// caso não, registramos a nova chave
+		}
+		RDO.entrySet().removeIf(entries -> entries.getValue().equals(1));
+		return RDO;
+	}
 	public HashMap <String, CommandLine> getLines()
 	{
 		return this.lines;
-	}
-	public HashMap <String, Integer> getRegisterDestOccurency()
-	{
-		return this.registerDestOccurency;
 	}
 	public void printLines() 
 	{
@@ -61,13 +66,4 @@ private HashMap <String, Integer> registerDestOccurency = new HashMap <String, I
 		}
 	}
 	
-	public void printRegisterOccurency() 
-	{
-		Set<String> keys = this.registerDestOccurency.keySet();
-		System.out.println("Ocorrencia dos registradores");
-		for (String key : keys) {
-			System.out.println(key+" :"+this.registerDestOccurency.get(key));
-		}
-		
-	}
 }
