@@ -10,7 +10,7 @@ import java.util.Set;
 public class FileReaderController {
 
 private final String COMMA_DELIMITER = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
-private HashMap <String, CommandLine> lines = new HashMap <String, CommandLine>();	// Armazenará os dados de cada linha, e sua chave é a posição da linha
+private HashMap <String, CommandLine> lines = new HashMap <String, CommandLine>();	// Armazenarï¿½ os dados de cada linha, e sua chave ï¿½ a posiï¿½ï¿½o da linha
 
 
 	public void readFile(String filepath) throws FileNotFoundException, IOException 
@@ -23,7 +23,7 @@ private HashMap <String, CommandLine> lines = new HashMap <String, CommandLine>(
 		    	//		0 => id, 1 => instrucao, 2 => destino, 3 => op1, 4 => op2	//
 		        String[] values = line.split(COMMA_DELIMITER);
 
-		        //		Cada linha será armazenada em lines, e iremos adicionar a	 //
+		        //		Cada linha serï¿½ armazenada em lines, e iremos adicionar a	 //
 		        //		ocorrencia do registrador destino em registerDestOccurency	// 
 		        
 		    	CommandLine CL = new CommandLine(values[0],values[1],values[2],values[3],values[4]);	//cria objeto linha
@@ -41,12 +41,23 @@ private HashMap <String, CommandLine> lines = new HashMap <String, CommandLine>(
 		Set<String> keys = this.lines.keySet();
 
 		for (String key : keys) {
-			if(RDO.get(this.lines.get(key).getDest()) != null) 	//caso já exista essa chave, adicionamos +1 na qntd ocorrências
+			if(RDO.get(this.lines.get(key).getDest()) != null) 	//caso jï¿½ exista essa chave, adicionamos +1 na qntd ocorrï¿½ncias
     		{	RDO.put(this.lines.get(key).getDest(), RDO.get(this.lines.get(key).getDest())+1);	}
-			else RDO.put(this.lines.get(key).getDest(), 1);	// caso não, registramos a nova chave
+			else RDO.put(this.lines.get(key).getDest(), 1);	// caso nï¿½o, registramos a nova chave
 		}
 		RDO.entrySet().removeIf(entries -> entries.getValue().equals(1));
 		return RDO;
+	}
+	
+	public HashMap <String, String> getFileDests()
+	{
+		HashMap <String, String> FD = new HashMap <String, String>();
+		Set<String> keys = this.lines.keySet();
+
+		for (String key : keys) {
+			FD.put(this.lines.get(key).getDest(), key);	//O array recebe o registrador destino e a linha
+		}
+		return FD;
 	}
 	public HashMap <String, CommandLine> getLines()
 	{
