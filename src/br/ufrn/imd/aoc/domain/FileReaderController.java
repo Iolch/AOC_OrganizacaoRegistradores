@@ -66,14 +66,14 @@ private HashMap <String, CommandLine> lines = new HashMap <String, CommandLine>(
 	public void printLines() 
 	{
 		Set<String> keys = this.lines.keySet();
-
-		System.out.println("Linhas");
+		System.out.println("ID\tTIPO\tDEST\tOP1\tOP2");
 		for (String key : keys) {
-			System.out.println("id: "+this.lines.get(key).getLinePosition());
-			System.out.println("ti: "+this.lines.get(key).getTipoInstrucao());
-			System.out.println("de: "+this.lines.get(key).getDest());
-			System.out.println("o1: "+this.lines.get(key).getOp1());
-			System.out.println("o2: "+this.lines.get(key).getOp2());
+			System.out.print(this.lines.get(key).getLinePosition()	+"\t");
+			System.out.print(this.lines.get(key).getTipoInstrucao()	+"\t");
+			System.out.print(this.lines.get(key).getDest()			+"\t");
+			System.out.print(this.lines.get(key).getOp1()			+"\t");
+			System.out.println(this.lines.get(key).getOp2());
+			System.out.println("--------------------------------------");
 		}
 	}
 	

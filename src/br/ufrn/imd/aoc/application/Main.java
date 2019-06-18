@@ -18,7 +18,8 @@ public class Main {
 			try 
 			{
 				RenameRegisters RR = new RenameRegisters(FR);	//Passamos o arquivo lido para a classe que ir� renomear os registradores
-				//FR.printLines();
+				System.out.println("ARQUIVO ORIGINAL");
+				FR.printLines();
 				
 				//Enquanto houver registradores repetidos no destino, iremos chamar a fun��o de renomear
 				HashMap <String, Integer> registersOccurency = FR.runRegisterDestOccurency();
@@ -28,7 +29,12 @@ public class Main {
 					registersOccurency = FR.runRegisterDestOccurency();
 				}
 				
+				//Agora, printamos as linhas após a renomeação dos registradores
+				System.out.println("ARQUIVO RENOMEADO");
 				FR.printLines();
+				
+				//Agora, iremos printar as dependencias entre as linhas. Note que nenhum registrador
+				//destino deve estar repetido nesse ponto
 				
 				DependenceChecker DC = new DependenceChecker(FR);
 				DC.run();
