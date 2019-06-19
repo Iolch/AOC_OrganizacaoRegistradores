@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import br.ufrn.imd.aoc.domain.DependenceChecker;
 import br.ufrn.imd.aoc.domain.FileReaderController;
+import br.ufrn.imd.aoc.domain.LinesSorter;
 import br.ufrn.imd.aoc.domain.RenameRegisters;
 
 public class Main {
@@ -38,6 +39,10 @@ public class Main {
 				
 				DependenceChecker DC = new DependenceChecker(FR);
 				DC.run();
+				
+				//Agora ordenaremos as linhas, deixando pelo menos um espaço entre as linhas dependentes
+				LinesSorter LS = new LinesSorter(FR, DC.getDependencies());
+				LS.run();
 			}catch(Exception e) 
 			{
 				

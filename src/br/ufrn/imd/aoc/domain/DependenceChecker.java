@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class DependenceChecker {
+	private HashMap<String, String> dependencies = new HashMap<String,String>();
 	private FileReaderController file = new FileReaderController();
 	
 	/**
@@ -17,6 +18,10 @@ public class DependenceChecker {
 	public DependenceChecker(FileReaderController file) {
 		// TODO Auto-generated constructor stub
 		this.file = file;
+	}
+	public HashMap<String, String> getDependencies()
+	{
+		return this.dependencies;
 	}
 	public void run() 
 	{
@@ -35,6 +40,14 @@ public class DependenceChecker {
 				if(Integer.parseInt(fileDests.get(temporaryOp1Key)) < Integer.parseInt(key))	//caso a linha do operando como destino seja anterior a atual 
 				{
 					System.out.println("Linha "+key+" depende de "+ fileDests.get(temporaryOp1Key));
+					
+					
+					//Caso uma dependencia já tenha sido relacionada a linha atual, adicionamos ela separada por ',' em uma string
+					if(this.dependencies.containsKey(key)) 
+					{
+						String temporary = this.dependencies.get(key)+","+fileDests.get(temporaryOp1Key);
+						this.dependencies.put(key, temporary);
+					}else this.dependencies.put(key, fileDests.get(temporaryOp1Key));
 				}	
 			}
 			
@@ -44,6 +57,13 @@ public class DependenceChecker {
 				if(Integer.parseInt(fileDests.get(temporaryOp2Key)) < Integer.parseInt(key))	//caso a linha do operando como destino seja anterior a atual 
 				{
 					System.out.println("Linha "+key+" depende de "+ fileDests.get(temporaryOp2Key));
+					
+					//Caso uma dependencia já tenha sido relacionada a linha atual, adicionamos ela separada por ',' em uma string
+					if(this.dependencies.containsKey(key)) 
+					{
+						String temporary = this.dependencies.get(key)+","+fileDests.get(temporaryOp2Key);
+						this.dependencies.put(key, temporary);
+					}else this.dependencies.put(key, fileDests.get(temporaryOp2Key));
 				}	
 			}
 			

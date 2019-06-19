@@ -10,13 +10,13 @@ public class RenameRegisters {
 	private ArrayList <String> availableRegisters = new ArrayList <String>();
 	public RenameRegisters(FileReaderController file) {
 		this.file = file;
-		this.availableRegisters.add("r0");
-		this.availableRegisters.add("r1");
-		this.availableRegisters.add("r2");
-		this.availableRegisters.add("r3");
-		this.availableRegisters.add("r4");
-		this.availableRegisters.add("r5");
-		this.availableRegisters.add("r6");
+		this.availableRegisters.add("$r0");
+		this.availableRegisters.add("$r1");
+		this.availableRegisters.add("$r2");
+		this.availableRegisters.add("$r3");
+		this.availableRegisters.add("$r4");
+		this.availableRegisters.add("$r5");
+		this.availableRegisters.add("$r6");
 	}
 	
 	public void run(HashMap <String, Integer> registersOccurency) 
