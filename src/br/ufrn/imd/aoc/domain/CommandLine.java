@@ -47,4 +47,8 @@ public class CommandLine {
 	{
 		this.op2 = op2;
 	}
+	public void setLinePosition(String lp) 
+	{
+		this.linePosition = lp;
+	}
 }
