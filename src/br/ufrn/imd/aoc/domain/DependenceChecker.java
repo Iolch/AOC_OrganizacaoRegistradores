@@ -23,7 +23,7 @@ public class DependenceChecker {
 	{
 		return this.dependencies;
 	}
-	public void run() 
+	public void run(Boolean remove) 
 	{
 		HashMap <String, String> fileDests = this.file.getFileDests();
 		
@@ -33,6 +33,8 @@ public class DependenceChecker {
 			
 			//SE O OPERANDO APARECER COMO DESTINO ANTES DA LINHA ATUAL, TEMOS UMA
 			//DEPENDENCIA DE LINHAS
+			Boolean keyBehindKey1 = false;
+			Boolean keyBehindKey2 = false;
 			
 			String temporaryOp1Key = this.file.getLines().get(key).getOp1();
 			if(fileDests.containsKey(temporaryOp1Key))	//caso o operando apareca como destino
@@ -41,6 +43,10 @@ public class DependenceChecker {
 				{
 					System.out.println("Linha "+key+" depende de "+ fileDests.get(temporaryOp1Key));
 					
+					if(fileDests.get(temporaryOp1Key).equals(Integer.toString(Integer.parseInt(key)-1))) //se a dependencia estiver exatamente atrás de key
+					{
+						keyBehindKey1 = true;
+					}
 					
 					//Caso uma dependencia já tenha sido relacionada a linha atual, adicionamos ela separada por ',' em uma string
 					if(this.dependencies.containsKey(key)) 
@@ -56,6 +62,11 @@ public class DependenceChecker {
 			{
 				if(Integer.parseInt(fileDests.get(temporaryOp2Key)) < Integer.parseInt(key))	//caso a linha do operando como destino seja anterior a atual 
 				{
+					
+					if(fileDests.get(temporaryOp2Key).equals(Integer.toString(Integer.parseInt(key)-1))) //se a dependencia estiver exatamente atrás de key
+					{
+						keyBehindKey2 = true;
+					}
 					System.out.println("Linha "+key+" depende de "+ fileDests.get(temporaryOp2Key));
 					
 					//Caso uma dependencia já tenha sido relacionada a linha atual, adicionamos ela separada por ',' em uma string
@@ -65,6 +76,11 @@ public class DependenceChecker {
 						this.dependencies.put(key, temporary);
 					}else this.dependencies.put(key, fileDests.get(temporaryOp2Key));
 				}	
+			}
+			
+			if(remove && !keyBehindKey1 && !keyBehindKey2) //vamos remover as linhas que não tem suas dependencias exatamente atras
+			{
+				if(this.dependencies.containsKey(key)) this.dependencies.remove(key);
 			}
 			
 			//OBS CHECAR SE ELE VAI PRINTAR A MESMA DEPENDENCIA MAIS DE UMA VEZ!!!!!!!

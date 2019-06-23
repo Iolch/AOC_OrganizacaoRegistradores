@@ -38,7 +38,7 @@ public class Main {
 				//destino deve estar repetido nesse ponto
 				
 				DependenceChecker DC = new DependenceChecker(FR);
-				DC.run();
+				DC.run(true);
 				
 				//Agora ordenaremos as linhas, deixando pelo menos um espaço entre as linhas dependentes
 				LinesSorter LS = new LinesSorter(FR, DC.getDependencies());

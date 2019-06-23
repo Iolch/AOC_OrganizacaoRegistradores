@@ -12,29 +12,13 @@ public class LinesSorter {
 		this.file = file;
 		this.dependencies = dependencies;
 	}
-	public void updateDependence(String key1, String key2) 
+	public void updateDependence() 
 	{
-		//se troquei 5 com 2, por exemplo
-		//troco as dependencias de 5 para 2
+		//removemos das dependencias, todo mundo que que nao precise ser movido
 		
-		
-		// troco as dependencias de 2 para 3
-		// troco as dependencias de 4 para 5
-		
-		if(this.dependencies.containsKey(key1))	 //a chave key 1, sempre acaba na posição key2, então é a primeira a ser alterada
-		{
-			//caso essa chave tivesse dependencias, precisaremos referenciar suas dependencias para a nova posição de key1
-			
-			if(this.dependencies.containsKey(key2)) 
-			{
-				String temporary = this.dependencies.get(key2);
-			}else 
-			{
-				this.dependencies.put(key2, this.dependencies.get(key1));	//coloque em key2 (2), as dependencias da antiga chave key1(5)
-				
-			}
-			
-		}
+		DependenceChecker DC = new DependenceChecker(this.file);
+		DC.run(true);
+		this.dependencies = DC.getDependencies();
 	}
 	public void replace(String key1, String key2) 
 	{
@@ -63,12 +47,26 @@ public class LinesSorter {
 		}
 		System.out.println("TROCA");
 		file.printLines();
-		
+		this.updateDependence();
 	}
+	
+	/**
+	 * eu dependo do cara exatamente atras de mim?
+	 * se sim,
+	 * o cara depois de mim, depende de mim ou do cara atras de mim?
+	 * se sim, pula para o proximo cara
+	 * se nao, troca manda o elemento pra tras do que estamos perguntando
+	 * se nÃ£o tem um proximo cara, vÃª se tem como voltar, se nao tiver, ai termina
+	 * para voltar, ele se pergunta 
+	 * */
 	public void run() 
 	{
-		Set<String> keys = this.dependencies.keySet();
-		for (String key : keys) {
+		while(!this.dependencies.isEmpty()) 
+		{
+
+			Set<String> keys = this.dependencies.keySet();
+			String key = keys.iterator().next();
+			
 			//O cara que eu dependo estÃ¡ exatamente atrÃ¡s de mim(key)?
 			if(Integer.parseInt(this.dependencies.get(key)) == (Integer.parseInt(key) - 1)) 
 			{
@@ -107,19 +105,9 @@ public class LinesSorter {
 					}
 					tmp += 1;	//passamos para a proxima linha
 				}
-				
-				//System.out.println(key+" = "+this.dependencies.get(key));
 			}else continue;
+			
 		}
-		/**
-		 * eu dependo do cara exatamente atras de mim?
-		 * se sim,
-		 * o cara depois de mim, depende de mim ou do cara atras de mim?
-		 * se sim, pula para o proximo cara
-		 * se nao, troca manda o elemento pra tras do que estamos perguntando
-		 * se nÃ£o tem um proximo cara, vÃª se tem como voltar, se nao tiver, ai termina
-		 * para voltar, ele se pergunta 
-		 * */
 	}
 
 }
