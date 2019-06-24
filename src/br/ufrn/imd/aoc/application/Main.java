@@ -42,7 +42,9 @@ public class Main {
 				
 				//Agora ordenaremos as linhas, deixando pelo menos um espaço entre as linhas dependentes
 				LinesSorter LS = new LinesSorter(FR, DC.getDependencies());
-				LS.run();
+				FileReaderController sortedFile = LS.run();
+				System.out.println("ARQUIVO REORDENADO");
+				sortedFile.printLines();
 			}catch(Exception e) 
 			{
 				

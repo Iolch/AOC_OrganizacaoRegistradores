@@ -29,6 +29,7 @@ public class DependenceChecker {
 		
 		//AGORA IREMOS PERCORRER AS LINHAS 
 		Set<String> keys = this.file.getLines().keySet();
+		System.out.println("DEPENDENCIAS:");
 		for (String key : keys) {
 			
 			//SE O OPERANDO APARECER COMO DESTINO ANTES DA LINHA ATUAL, TEMOS UMA

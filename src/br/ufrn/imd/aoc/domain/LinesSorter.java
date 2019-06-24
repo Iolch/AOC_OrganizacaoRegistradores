@@ -45,21 +45,21 @@ public class LinesSorter {
 			// e depois, a linha key1, receberá o valor que antes era armazenado em currentPosition
 			file.getLines().put(key1, temporary);
 		}
-		System.out.println("TROCA");
+		System.out.println("TROCA " + key1 + " E " + key2 );
 		file.printLines();
 		this.updateDependence();
 	}
 	
 	/**
+	 * Workflow da função
 	 * eu dependo do cara exatamente atras de mim?
-	 * se sim,
-	 * o cara depois de mim, depende de mim ou do cara atras de mim?
-	 * se sim, pula para o proximo cara
-	 * se nao, troca manda o elemento pra tras do que estamos perguntando
-	 * se nÃ£o tem um proximo cara, vÃª se tem como voltar, se nao tiver, ai termina
-	 * para voltar, ele se pergunta 
+	 * 	se sim,
+	 * 	o cara depois de mim, depende de mim ou do cara atras de mim?
+	 * 	 se sim, pula para o proximo cara
+	 * 	 se nao, troca manda o elemento pra tras do que estamos perguntando
+	 * 	se nÃ£o tem um proximo cara, vÃª se tem como voltar, se nao tiver, termina
 	 * */
-	public void run() 
+	public FileReaderController run() 
 	{
 		while(!this.dependencies.isEmpty()) 
 		{
@@ -93,13 +93,11 @@ public class LinesSorter {
 						}
 						if(canMove) 
 						{
-							System.out.println("troco "+tmp+ " por "+key);
 							this.replace(Integer.toString(tmp), key);
 							break;
 						}
 					}else 
 					{
-						System.out.println("troco "+tmp+ " por "+key);
 						this.replace(Integer.toString(tmp), key);
 						break;
 					}
@@ -108,6 +106,7 @@ public class LinesSorter {
 			}else continue;
 			
 		}
+		return file;
 	}
 
 }
