@@ -66,44 +66,55 @@ public class LinesSorter {
 
 			Set<String> keys = this.dependencies.keySet();
 			String key = keys.iterator().next();
-			
 			//O cara que eu dependo está exatamente atrás de mim(key)?
-			if(Integer.parseInt(this.dependencies.get(key)) == (Integer.parseInt(key) - 1)) 
+			
+			int tmp = Integer.parseInt(key)+1;	//a proxima linha
+
+			String dp = this.dependencies.get(key);
+			String[] dpParts = dp.split(",");
+			for(String part : dpParts) 
 			{
-				//Existe alguem, depois de mim(key), que não depende de mim(key) ou do cara anterior a mim(key)?
-				int tmp = Integer.parseInt(key)+1;	//a proxima linha
-				while(this.file.getLines().containsKey(Integer.toString(tmp))) 
+
+				if(Integer.parseInt(part) == (Integer.parseInt(key) - 1)) 
 				{
-					//se nao depende de mim(key) e não depende do cara anterior a mim(key)
+
+					//Existe alguem, depois de mim(key), que não depende de mim(key) ou do cara anterior a mim(key)?
 					
-					if(this.dependencies.containsKey(Integer.toString(tmp))) 
+					while(this.file.getLines().containsKey(Integer.toString(tmp))) 
 					{
-						// vamos pegar as dependencias da linha tmp, e checar
-						// se ela depende de alguem;
-						String dp = this.dependencies.get(Integer.toString(tmp));
-						String[] dpParts = dp.split(",");
-						boolean canMove = true;
-						for(String part : dpParts) 
+						//se nao depende de mim(part) e não depende do cara anterior a mim(part)
+						
+						if(this.dependencies.containsKey(Integer.toString(tmp))) 
 						{
-							if(part.equals(key) || part.equals(Integer.toString(Integer.parseInt(key)-1)) || Integer.parseInt(part) > Integer.parseInt(key) )
+							// vamos pegar as dependencias da linha tmp, e checar
+							// se ela depende de alguem;
+							String[] tmpParts = this.dependencies.get(Integer.toString(tmp)).split(",");
+							
+							boolean canMove = true;
+							for(String tmpPart : tmpParts) 
 							{
-								canMove = false;
+								if(tmpPart.equals(part) || tmpPart.equals(Integer.toString(Integer.parseInt(part)-1)) || Integer.parseInt(tmpPart) > Integer.parseInt(part) )
+								{
+									canMove = false;
+									break;
+								}
+							}
+							if(canMove) 
+							{
+								this.replace(Integer.toString(tmp), key);
 								break;
 							}
-						}
-						if(canMove) 
+						}else 
 						{
 							this.replace(Integer.toString(tmp), key);
 							break;
 						}
-					}else 
-					{
-						this.replace(Integer.toString(tmp), key);
-						break;
+						tmp += 1;	//passamos para a proxima linha
 					}
-					tmp += 1;	//passamos para a proxima linha
-				}
-			}else continue;
+				}else continue;
+			}
+			
+			
 			
 		}
 		return file;

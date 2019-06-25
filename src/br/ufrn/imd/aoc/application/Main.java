@@ -15,7 +15,9 @@ public class Main {
 		FileReaderController FR = new FileReaderController();
 		
 		try {
-			FR.readFile("assets/AOC_data.csv");
+			//FR.readFile("assets/AOC_data.csv");
+			//FR.readFile("assets/AOC_data_exemplo2.txt");
+			FR.readFile("assets/AOC_data_exemplo1.txt");
 			try 
 			{
 				RenameRegisters RR = new RenameRegisters(FR);	//Passamos o arquivo lido para a classe que ir� renomear os registradores
